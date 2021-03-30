@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import * as React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import { routes } from 'utils/routes';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import HomeView from 'views/home';
+import ChargesView from 'views/charges';
+
+const App: React.FunctionComponent = () => (
+  <Router>
+    <Switch>
+      <Route path={routes.home} exact>
+        <HomeView />
+      </Route>
+      <Route path={routes.charges}>
+        <ChargesView />
+      </Route>
+    </Switch>
+  </Router>
+);
 
 export default App;
