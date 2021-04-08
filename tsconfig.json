@@ -7,7 +7,6 @@
       "ES2019"
     ],
     "jsx": "react-jsx",
-    "esModuleInterop": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -21,7 +20,8 @@
     "emitDecoratorMetadata": true,
     "noEmit": true,
     "baseUrl": "src",
-    "allowJs": true
+    "allowJs": true,
+    "esModuleInterop": true
   },
   "include": [
     "src"

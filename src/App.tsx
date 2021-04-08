@@ -13,8 +13,11 @@ const App: React.FunctionComponent = () => (
       <Route path={routes.home} exact>
         <HomeView />
       </Route>
-      <Route path={routes.charges}>
+      <Route path={routes.invoices}>
         <ChargesView />
+      </Route>
+      <Route path={routes.unknown}>
+        <HomeView />
       </Route>
     </Switch>
   </Router>

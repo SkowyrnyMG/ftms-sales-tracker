@@ -35,6 +35,13 @@
       {
         "endOfLine": "auto"
       }
+    ],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["accu"]
+      }
     ]
   }
 }

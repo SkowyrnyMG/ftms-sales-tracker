@@ -9,7 +9,7 @@ interface ILayoutProps {
 const Layout: React.FunctionComponent<ILayoutProps> = ({ children }) => (
   <>
     <Header />
-    <div className='container'>{children}</div>
+    <div className='container mt-5'>{children}</div>
   </>
 );
 

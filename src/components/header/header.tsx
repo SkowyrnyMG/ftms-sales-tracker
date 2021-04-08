@@ -1,14 +1,21 @@
 import * as React from 'react';
 
 import { Link } from 'react-router-dom';
+import { ReactComponent as LogoIcon } from 'assets/svg/logo.svg';
 
 import { routes } from 'utils/routes';
 
 const Header: React.FunctionComponent = () => (
-  <nav className='navbar' role='navigation' aria-label='main navigation'>
+  <nav
+    className='navbar is-secondary has-shadow'
+    role='navigation'
+    aria-label='main navigation'
+  >
     <div className='navbar-brand'>
       <Link className='navbar-item' to={routes.home}>
-        <span className='is-size-3 is-family-secondary'>Tracker</span>
+        <div className='$size-2 container'>
+          <LogoIcon className='$size-2' width='10rem' height='3rem' />
+        </div>
       </Link>
 
       <button
@@ -30,8 +37,8 @@ const Header: React.FunctionComponent = () => (
           Home
         </Link>
 
-        <Link className='navbar-item' to={routes.charges}>
-          Charges
+        <Link className='navbar-item' to={routes.invoices}>
+          Invoices
         </Link>
       </div>
 

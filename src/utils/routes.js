@@ -1,4 +1,5 @@
 export const routes = {
   home: '/',
-  charges: '/charges',
+  invoices: '/invoices',
+  unknown: '*',
 };
