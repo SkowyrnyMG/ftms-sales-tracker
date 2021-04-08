@@ -19,9 +19,7 @@ const sumColumn = (
     return accu;
   }, 0);
 
-const InvoicesTemplate: React.FunctionComponent<IInvoicesTeplateProps> = ({
-  data,
-}) => {
+const InvoicesTemplate: React.FC<IInvoicesTeplateProps> = ({ data }) => {
   return (
     <div className='box'>
       <div className='columns'>

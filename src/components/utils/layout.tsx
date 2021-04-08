@@ -6,7 +6,7 @@ interface ILayoutProps {
   children: React.ReactNode;
 }
 
-const Layout: React.FunctionComponent<ILayoutProps> = ({ children }) => (
+const Layout: React.FC<ILayoutProps> = ({ children }) => (
   <>
     <Header />
     <div className='container mt-5'>{children}</div>

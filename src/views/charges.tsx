@@ -16,7 +16,7 @@ const dummyData = [
   },
 ];
 
-const InvoicesView: React.FunctionComponent = () => (
+const InvoicesView: React.FC = () => (
   <Layout>
     <InvoicesTemplate data={dummyData} />
   </Layout>

@@ -6,11 +6,7 @@ interface IRowPositionProps {
   gross: number;
 }
 
-const RowPositon: React.FunctionComponent<IRowPositionProps> = ({
-  invoice,
-  nett,
-  gross,
-}) => (
+const RowPositon: React.FC<IRowPositionProps> = ({ invoice, nett, gross }) => (
   <div className='columns'>
     <div className='column pl-5 '>{invoice}</div>
     <div className='column pl-5 '>{nett}</div>

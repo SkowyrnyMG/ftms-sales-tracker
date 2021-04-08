@@ -4,9 +4,7 @@ interface IColumnHeadingBox {
   children: string;
 }
 
-const ColumnHeadingBox: React.FunctionComponent<IColumnHeadingBox> = ({
-  children,
-}) => (
+const ColumnHeadingBox: React.FC<IColumnHeadingBox> = ({ children }) => (
   <div className='column has-text-centered has-shadow'>
     <div className='has-shadow box'>{children}</div>
   </div>

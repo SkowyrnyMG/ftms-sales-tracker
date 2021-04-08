@@ -5,7 +5,7 @@ import { ReactComponent as LogoIcon } from 'assets/svg/logo.svg';
 
 import { routes } from 'utils/routes';
 
-const Header: React.FunctionComponent = () => (
+const Header: React.FC = () => (
   <nav
     className='navbar is-secondary has-shadow'
     role='navigation'
