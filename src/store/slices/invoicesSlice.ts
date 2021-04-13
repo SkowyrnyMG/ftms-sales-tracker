@@ -3,8 +3,14 @@ import axios, { AxiosResponse } from 'axios';
 
 import { RootState } from 'store/store';
 
+interface IInvoice {
+  invoice: string;
+  nett: number;
+  gross: number;
+}
+
 interface IinvoicesSlice {
-  invoices: { invoice: string; nett: number; gross: number }[];
+  invoices: IInvoice[];
 }
 
 const initialState: IinvoicesSlice = {
@@ -15,32 +21,23 @@ export const getAllBySaleDate = createAsyncThunk(
   'invoices/getAllBySaleDate',
   async () => {
     try {
-      // const raw = '';
-
-      // const requestOptions = {
-      //   method: 'GET',
-      //   body: raw,
-      //   redirect: 'follow',
-      // };
       const api = process.env.REACT_APP_fireApi;
 
       const data = '';
 
       const result = await axios
         .get(
-          `https://app.firetms.com/api/invoices/sales/issued?dateOfSaleFrom=2019-01-01&dateOfSaleTo=2019-03-30&key=${api}`,
+          `https://app.firetms.com/api/invoices/sales/corrective?dateOfIssueFrom=2019-01-01&dateOfIssueTo=2019-03-30&page=1&sortBy=id&asc=true&pageSize=25`,
           {
             headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods':
-                'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-              'Access-Control-Allow-Credentials': true,
+              apiKey:
+                'ae31ff6f-1936-4a2d-8390-5943c8e63cf0|Ot/H1wkNcJtoRvPnNaRY9w==',
             },
             data,
           },
         )
         .then((response: AxiosResponse) => {
-          console.log(response);
+          return response;
         });
 
       return result;
@@ -54,11 +51,14 @@ export const invoicesSlice = createSlice({
   name: 'invoices',
   initialState,
   reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(getAllBySaleDate.fulfilled, (state, { payload }) => {
+      state.invoices = payload;
+    });
+  },
 });
 
-export const selectInvoices = (
-  state: RootState,
-): { invoice: string; nett: number; gross: number }[] =>
+export const selectInvoices = (state: RootState): IInvoice[] =>
   state.InvoicesReducer.invoices;
 
 export default invoicesSlice.reducer;
