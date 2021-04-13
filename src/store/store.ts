@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import InvoicesReducer from 'store/slices/invoicesSlice';
+import UIReducer from 'store/slices/uiSlice';
 
-const reducer = { InvoicesReducer };
+const reducer = { InvoicesReducer, UIReducer };
 
 export const store = configureStore({ reducer });
 

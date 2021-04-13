@@ -15,7 +15,6 @@ exports.handler = (event, context, callback) => {
         options,
       )
       .then(async ({ data }) => {
-        console.log(data);
         await callback(null, {
           statusCode: 200,
           body: JSON.stringify({
@@ -25,5 +24,5 @@ exports.handler = (event, context, callback) => {
       });
   };
 
-  // response();
+  response();
 };

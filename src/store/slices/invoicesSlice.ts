@@ -30,8 +30,7 @@ export const getAllBySaleDate = createAsyncThunk(
           `https://app.firetms.com/api/invoices/sales/corrective?dateOfIssueFrom=2019-01-01&dateOfIssueTo=2019-03-30&page=1&sortBy=id&asc=true&pageSize=25`,
           {
             headers: {
-              apiKey:
-                'ae31ff6f-1936-4a2d-8390-5943c8e63cf0|Ot/H1wkNcJtoRvPnNaRY9w==',
+              apiKey: api,
             },
             data,
           },

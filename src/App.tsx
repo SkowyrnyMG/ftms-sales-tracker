@@ -8,7 +8,7 @@ import { routes } from 'utils/routes';
 import './App.css';
 
 import HomeView from 'views/home';
-import ChargesView from 'views/charges';
+import InvoicesView from 'views/invoices';
 
 const App: React.FC = () => (
   <Provider store={store}>
@@ -18,7 +18,7 @@ const App: React.FC = () => (
           <HomeView />
         </Route>
         <Route path={routes.invoices}>
-          <ChargesView />
+          <InvoicesView />
         </Route>
         <Route path={routes.unknown}>
           <HomeView />
