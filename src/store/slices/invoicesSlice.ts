@@ -1,12 +1,26 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios, { AxiosResponse } from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from 'store/store';
 
 interface IInvoice {
   invoice: string;
-  nett: number;
-  gross: number;
+  status: string;
+  payer: string;
+  saleDate: Date;
+  issueDate: Date;
+  dueDate: Date;
+  nettValue: number;
+  nettCurrency: string;
+  taxValue: number;
+  taxCurrency: string;
+  grossValue: number;
+  grossCurrency: string;
+  nettInBranchCurrencyValue: number;
+  nettInBranchCurrency: string;
+  taxInBranchCurrencyValue: number;
+  taxInBranchCurrency: string;
+  grossInBranchCurrencyValue: number;
+  grossInBranchCurrency: string;
 }
 
 interface IinvoicesSlice {
@@ -17,45 +31,20 @@ const initialState: IinvoicesSlice = {
   invoices: [],
 };
 
-export const getAllBySaleDate = createAsyncThunk(
-  'invoices/getAllBySaleDate',
-  async () => {
-    try {
-      const api = process.env.REACT_APP_fireApi;
-
-      const data = '';
-
-      const result = await axios
-        .get(
-          `https://app.firetms.com/api/invoices/sales/corrective?dateOfIssueFrom=2019-01-01&dateOfIssueTo=2019-03-30&page=1&sortBy=id&asc=true&pageSize=25`,
-          {
-            headers: {
-              apiKey: api,
-            },
-            data,
-          },
-        )
-        .then((response: AxiosResponse) => {
-          return response;
-        });
-
-      return result;
-    } catch (err) {
-      return err;
-    }
-  },
-);
-
 export const invoicesSlice = createSlice({
   name: 'invoices',
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(getAllBySaleDate.fulfilled, (state, { payload }) => {
+  reducers: {
+    setInvoices: (state, { payload }) => {
       state.invoices = payload;
-    });
+    },
+    setDefault: (state) => {
+      state.invoices = [];
+    },
   },
 });
+
+export const { setInvoices, setDefault } = invoicesSlice.actions;
 
 export const selectInvoices = (state: RootState): IInvoice[] =>
   state.InvoicesReducer.invoices;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import CSVLoader from 'components/modules/csv-loader/csv-loader';
+import LoaderInvoicesCsv from 'components/organisms/loader-invoices-csv/loader-invoices-csv';
 
 interface IProps {
   title?: string;
@@ -16,7 +16,7 @@ const ImportCSVBlock: React.FC<IProps> = ({ title, children }) => (
         {children}
       </div>
     </article>
-    <CSVLoader />
+    <LoaderInvoicesCsv />
   </div>
 );
 

@@ -2,8 +2,8 @@ import * as React from 'react';
 
 interface IRowPositionProps {
   invoice: string;
-  nett: number;
-  gross: number;
+  nett?: number;
+  gross?: number;
 }
 
 const RowPositon: React.FC<IRowPositionProps> = ({ invoice, nett, gross }) => (

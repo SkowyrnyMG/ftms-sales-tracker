@@ -1,15 +1,21 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
 
 import ImportCSVBlock from 'components/organisms/import-csv-block/import-csv-block';
 import { importInvoicesSchema } from 'content/home';
+import { setDefault } from 'store/slices/invoicesSlice';
 
 const HomeTemplate: React.FC = () => {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(setDefault());
+  });
   return (
     <>
+      <h1 className='title is-1 my-5 py-5 has-text-centered has-text-weight-bold'>
+        Welcome into FIRETRACKER reprort module!
+      </h1>
       <div className='box'>
-        <h1 className='title is-1 my-5 py-5 has-text-centered has-text-weight-bold'>
-          Welcome into FIRETRACKER reprort module!
-        </h1>
         <ImportCSVBlock title='Invoice import CSV schema'>
           <p className='ml-1 mb-2'>
             Prepare your CSV in the order listed below:
