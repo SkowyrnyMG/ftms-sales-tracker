@@ -1,5 +1,6 @@
 import type { CsvDataType, IParsedCsvData } from 'types/types';
 
+// * Parse CSV Array of array into CSV Array of objects
 export const invoicesParser = (data: CsvDataType[]): IParsedCsvData[] => {
   return Object.assign(
     data.map((pos) => {

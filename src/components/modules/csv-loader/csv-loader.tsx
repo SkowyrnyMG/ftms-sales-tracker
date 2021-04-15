@@ -40,7 +40,8 @@ const CSVLoader: React.FC = () => {
             File name: {csvInfo.name}
           </span>
           <span className='has-text-weight-bold mx-5'>
-            File size: {(csvInfo.size / BYTES_IN_KILOBYTE).toFixed(2)}Kb
+            File size:
+            {(csvInfo.size / BYTES_IN_KILOBYTE).toFixed(2)}Kb
           </span>
           <Link
             to='/invoices'
