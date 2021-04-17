@@ -2,6 +2,7 @@ import * as React from 'react';
 import type { IParsedCsvData } from 'types/types';
 
 import SelectOption from 'components/atoms/select-option/select-option';
+import Hero from 'components/modules/hero/hero';
 
 import {
   filterRows,
@@ -54,13 +55,17 @@ const InvoicesTemplate: React.FC<IInvoicesTeplateProps> = ({ data }) => {
 
   return (
     <div className='container'>
+      <Hero
+        title='Raport sprzedaży'
+        subtitle='Podaj odpowiedni miesiąc i rok, aby wyświetlić poprawne dane na raporcie PDF.'
+      />
       <div className='box'>
         <div className='columns'>
           <div className='column'>
             <input
               className='input is-info'
               type='text'
-              placeholder='Info input'
+              placeholder='Wprowadź miesiąc, np. Styczeń'
               value={dateOfSummary.period}
               onChange={(e) =>
                 setDateOfSummary((prevState) => ({
@@ -92,73 +97,100 @@ const InvoicesTemplate: React.FC<IInvoicesTeplateProps> = ({ data }) => {
       </div>
       {/* -- End of input fields -- */}
 
-      <div className='box'>
-        <div className='container'>
+      <div className='box is-size-5'>
+        <div className='container my-3'>
           <h1 className='title is-2 has-text-centered has-text-weight-bold is-uppercase'>
-            Summary
+            Podsumowanie
           </h1>
         </div>
-        <div className='container'>
-          <span className='mr-2'>Miesiąc:</span>
-          <span className='has-text-weight-bold'>{dateOfSummary.period}</span>
-        </div>
-        <div className='container'>
-          <span className='mr-2'>Rok:</span>
-          <span className='has-text-weight-bold'>{dateOfSummary.year}</span>
-        </div>
-        <div className='container'>
-          <span className='mr-2'>Ilość faktur:</span>
-          <span className='has-text-weight-bold'>{invoicesCounter}</span>
-        </div>
-        <div className='container'>
-          <span className='mr-2'>
-            Wartność netto wszystkich faktur w walucie oddziału:
-          </span>
-          <span className='has-text-weight-bold'>{nettInBranchValue}</span>
-        </div>
-        <div className='container'>
-          <span className='mr-2'>
-            Wartność podatku wszystkich faktur w walucie oddziału:
-          </span>
-          <span className='has-text-weight-bold'>{taxInBranchValue}</span>
-        </div>
-        <div className='container'>
-          <span className='mr-2'>
-            Wartność BRUTTO wszystkich faktur w walucie oddziału:
-          </span>
-          <span className='has-text-weight-bold'>{grossInBranchValue}</span>
-        </div>
-        <div className='container'>
-          <span className='mr-2'>Wartość NETTO faktur wystawionych w EUR:</span>
-          <span className='has-text-weight-bold'>{nettValueOfEurInvoices}</span>
-        </div>
-        <div className='container'>
-          <span className='mr-2'>
-            Wartość podatku faktur wystawionych w EUR:
-          </span>
-          <span className='has-text-weight-bold'>{taxValueOfEurInvoices}</span>
-        </div>
-        <div className='container'>
-          <span className='mr-2'>Wartość BRUTTO faktur wystawionych EUR:</span>
-          <span className='has-text-weight-bold'>
-            {grossValueOfEurInvoices}
-          </span>
-        </div>
-        <div className='container'>
-          <span className='mr-2'>Wartość faktur wystawionych w PLN:</span>
-          <span className='has-text-weight-bold'>{nettValueOfPlnInvoices}</span>
-        </div>
-        <div className='container'>
-          <span className='mr-2'>Wartość podatku faktur wystawionych PLN:</span>
-          <span className='has-text-weight-bold'>{taxValueOfPlnInvoices}</span>
-        </div>
-        <div className='container'>
-          <span className='mr-2'>
-            Wartość BRUTTON faktur wystawionych w PLN:
-          </span>
-          <span className='has-text-weight-bold'>
-            {grossValueOfPlnInvoices}
-          </span>
+        <div className='columns'>
+          <div className='column is-four-fifths'>
+            <div className='container my-3'>
+              <span className='mr-2'>Miesiąc:</span>
+              <span className='has-text-weight-bold'>
+                {dateOfSummary.period}
+              </span>
+            </div>
+            <div className='container my-3'>
+              <span className='mr-2'>Rok:</span>
+              <span className='has-text-weight-bold'>{dateOfSummary.year}</span>
+            </div>
+            <div className='container my-3'>
+              <span className='mr-2'>Ilość faktur:</span>
+              <span className='has-text-weight-bold'>{invoicesCounter}</span>
+            </div>
+            <div className='container my-3'>
+              <span className='mr-2'>
+                Wartność netto wszystkich faktur w walucie oddziału:
+              </span>
+              <span className='has-text-weight-bold'>{nettInBranchValue}</span>
+            </div>
+            <div className='container my-3'>
+              <span className='mr-2'>
+                Wartność podatku wszystkich faktur w walucie oddziału:
+              </span>
+              <span className='has-text-weight-bold'>{taxInBranchValue}</span>
+            </div>
+            <div className='container my-3'>
+              <span className='mr-2'>
+                Wartność BRUTTO wszystkich faktur w walucie oddziału:
+              </span>
+              <span className='has-text-weight-bold'>{grossInBranchValue}</span>
+            </div>
+            <div className='container my-3'>
+              <span className='mr-2'>
+                Wartość NETTO faktur wystawionych w EUR:
+              </span>
+              <span className='has-text-weight-bold'>
+                {nettValueOfEurInvoices}
+              </span>
+            </div>
+            <div className='container my-3'>
+              <span className='mr-2'>
+                Wartość podatku faktur wystawionych w EUR:
+              </span>
+              <span className='has-text-weight-bold'>
+                {taxValueOfEurInvoices}
+              </span>
+            </div>
+            <div className='container my-3'>
+              <span className='mr-2'>
+                Wartość BRUTTO faktur wystawionych EUR:
+              </span>
+              <span className='has-text-weight-bold'>
+                {grossValueOfEurInvoices}
+              </span>
+            </div>
+            <div className='container my-3'>
+              <span className='mr-2'>Wartość faktur wystawionych w PLN:</span>
+              <span className='has-text-weight-bold'>
+                {nettValueOfPlnInvoices}
+              </span>
+            </div>
+            <div className='container my-3'>
+              <span className='mr-2'>
+                Wartość podatku faktur wystawionych PLN:
+              </span>
+              <span className='has-text-weight-bold'>
+                {taxValueOfPlnInvoices}
+              </span>
+            </div>
+            <div className='container my-3'>
+              <span className='mr-2'>
+                Wartość BRUTTON faktur wystawionych w PLN:
+              </span>
+              <span className='has-text-weight-bold'>
+                {grossValueOfPlnInvoices}
+              </span>
+            </div>
+          </div>
+          <div className='column has-border'>
+            <div className='container'>
+              <button type='button' className='button is-link is-outlined'>
+                Exportuj PDF
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -32,15 +32,15 @@ const CSVLoader: React.FC = () => {
           setCsvData(data);
         }}
         parserOptions={{ skipEmptyLines: true }}
-        label='Choose a file from your PC:  '
+        label='Wybierz plik CSV z Twojego komputera:  '
       />
       {csvInfo && (
         <div className='my-3 p-2'>
           <span className='has-text-weight-bold mr-5'>
-            File name: {csvInfo.name}
+            Nazwa pliku: {csvInfo.name}
           </span>
           <span className='has-text-weight-bold mx-5'>
-            File size:
+            Rozmiar pliku:
             {(csvInfo.size / BYTES_IN_KILOBYTE).toFixed(2)}Kb
           </span>
           <Link
@@ -48,7 +48,7 @@ const CSVLoader: React.FC = () => {
             className='button is-link  mx-5 is-small is-outlined'
             onClick={handleSubmit}
           >
-            Submit
+            Generuj raport
           </Link>
         </div>
       )}

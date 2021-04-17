@@ -2,7 +2,9 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 
 import ImportCSVBlock from 'components/organisms/import-csv-block/import-csv-block';
-import { importInvoicesSchema } from 'content/home';
+import Hero from 'components/modules/hero/hero';
+
+import { importInvoicesSchemaPl } from 'content/home';
 import { setDefault } from 'store/slices/invoicesSlice';
 
 const HomeTemplate: React.FC = () => {
@@ -13,23 +15,27 @@ const HomeTemplate: React.FC = () => {
   return (
     <>
       <h1 className='title is-1 my-5 py-5 has-text-centered has-text-weight-bold'>
-        Welcome into FIRETRACKER reprort module!
+        Witaj w aplikacji ułatwiającej raporty z fireTMS!
       </h1>
+      <Hero
+        title='Raport sprzedaży'
+        subtitle='Opcja ta pozwoli Ci szybko wygenerować najważniejsze informacje dotyczące sprzedaży ze wskazanego okresu dla Twojej księgowości!'
+      />
       <div className='box'>
-        <ImportCSVBlock title='Invoice import CSV schema'>
+        <ImportCSVBlock title='Schemat pliku CSV do importu faktur'>
           <p className='ml-1 mb-2'>
-            Prepare your CSV in the order listed below:
+            Przygotuj plik CSV z danymi w kolejności, jak poniżej:
           </p>
           <table className='table is-bordered is-hoverable is-fullwidth'>
             <thead>
               <tr>
-                <th>Collumn positon</th>
-                <th>Field Name</th>
-                <th>Example data</th>
+                <th>Pozycja kolumny</th>
+                <th>Nazwa kolumny</th>
+                <th>Przykładowe adane</th>
               </tr>
             </thead>
             <tbody>
-              {importInvoicesSchema.map(({ pos, name, exampleData }) => (
+              {importInvoicesSchemaPl.map(({ pos, name, exampleData }) => (
                 <tr key={name}>
                   <th>{pos}</th>
                   <td>{name}</td>
@@ -39,7 +45,8 @@ const HomeTemplate: React.FC = () => {
             </tbody>
           </table>
           <p className='ml-1'>
-            If your CSV is formated save it and import it below
+            Jeżeli Twój plik CSV jest przygotowany zgodnie z powyższym schematem
+            zaimportuj go poniżej, żeby wytworzyć raport sprzedaży.
           </p>
         </ImportCSVBlock>
       </div>

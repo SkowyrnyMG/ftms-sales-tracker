@@ -1,49 +1,70 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import { ReactComponent as LogoIcon } from 'assets/svg/logo.svg';
 
 import { routes } from 'utils/routes';
+import { selectInvoices } from 'store/slices/invoicesSlice';
+import { usePathname } from 'hooks/usePathname';
 
-const Header: React.FC = () => (
-  <nav
-    className='navbar is-secondary has-shadow'
-    role='navigation'
-    aria-label='main navigation'
-  >
-    <div className='navbar-brand'>
-      <Link className='navbar-item' to={routes.home}>
-        <div className='$size-2 container'>
-          <LogoIcon className='$size-2' width='10rem' height='3rem' />
-        </div>
-      </Link>
+const Header: React.FC = () => {
+  const loadedFiles = useSelector(selectInvoices);
+  const [isInvoiceFileLoaded] = React.useState<boolean>(loadedFiles.length > 0);
 
-      <button
-        type='button'
-        className='navbar-burger'
-        aria-label='menu'
-        aria-expanded='false'
-        data-target='navbarBasicExample'
-      >
-        <span aria-hidden='true' />
-        <span aria-hidden='true' />
-        <span aria-hidden='true' />
-      </button>
-    </div>
+  const currentPath = usePathname();
 
-    <div id='navbarBasicExample' className='navbar-menu'>
-      <div className='navbar-start'>
+  const setActive = (path: string): string => {
+    const bulmaIsActive = 'is-active';
+    return currentPath === path ? bulmaIsActive : '';
+  };
+
+  return (
+    <nav
+      className='navbar is-secondary has-shadow'
+      role='navigation'
+      aria-label='main navigation'
+    >
+      <div className='navbar-brand'>
         <Link className='navbar-item' to={routes.home}>
-          Home
+          <div className='$size-2 container'>
+            <LogoIcon className='$size-2' width='10rem' height='3rem' />
+          </div>
         </Link>
 
-        <Link className='navbar-item' to={routes.invoices}>
-          Invoices
-        </Link>
+        <button
+          type='button'
+          className='navbar-burger'
+          aria-label='menu'
+          aria-expanded='false'
+          data-target='navbarBasicExample'
+        >
+          <span aria-hidden='true' />
+          <span aria-hidden='true' />
+          <span aria-hidden='true' />
+        </button>
       </div>
 
-      <div className='navbar-end'>
-        <div className='navbar-item'>
+      <div id='navbarBasicExample' className='navbar-menu'>
+        <div className='navbar-start'>
+          <Link
+            className={`navbar-item is-tab ${setActive('/')}`}
+            to={routes.home}
+          >
+            Głowna
+          </Link>
+          {isInvoiceFileLoaded && (
+            <Link
+              className={`navbar-item is-tab ${setActive('/invoices')}`}
+              to={routes.invoices}
+            >
+              Faktury
+            </Link>
+          )}
+        </div>
+
+        <div className='navbar-end'>
+          {/* <div className='navbar-item'>
           <div className='buttons'>
             <a className='button is-primary' href='/'>
               <strong>Sign up</strong>
@@ -52,10 +73,11 @@ const Header: React.FC = () => (
               Log in
             </a>
           </div>
+        </div> */}
         </div>
       </div>
-    </div>
-  </nav>
-);
+    </nav>
+  );
+};
 
 export default Header;
