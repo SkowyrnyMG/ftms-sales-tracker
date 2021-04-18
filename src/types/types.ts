@@ -45,3 +45,8 @@ export interface IParsedCsvData {
   grossInBranchCurrencyValue: number;
   grossInBranchCurrency: string;
 }
+
+export interface IReportData {
+  name: string;
+  value: number | string;
+}
