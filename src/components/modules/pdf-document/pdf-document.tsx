@@ -172,7 +172,7 @@ const PDFDocument: React.FC<IPDFDocumentProps> = ({
           <Text>{comments}</Text>
         </View>
         <View style={styles.sectionSmall}>
-          <Text>Raport wygenerowany dnia: {currentDate}</Text>
+          <Text>Raport utworzony dnia: {currentDate}</Text>
         </View>
       </Page>
     </Document>
