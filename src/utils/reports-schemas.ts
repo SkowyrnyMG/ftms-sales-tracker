@@ -13,25 +13,13 @@ export const invoicesReportSchema = (data: IParsedCsvData[]): IReportData[] => [
     value: countPositions(data),
   },
   {
-    name: 'Wartność netto wszystkich faktur w walucie oddziału:',
-    value: format(sumColumn(data, 'nettInBranchCurrencyValue')),
-  },
-  {
-    name: 'Wartność podatku wszystkich faktur w walucie oddziału:',
-    value: format(sumColumn(data, 'taxInBranchCurrencyValue')),
-  },
-  {
-    name: 'Wartność BRUTTO wszystkich faktur w walucie oddziału:',
-    value: sumColumn(filterRows(data, 'grossCurrency', 'EUR'), 'grossValue'),
-  },
-  {
     name: 'Wartość NETTO faktur wystawionych w EUR:',
     value: format(
       sumColumn(filterRows(data, 'nettCurrency', 'EUR'), 'nettValue'),
     ),
   },
   {
-    name: 'Wartość podatku faktur wystawionych w EUR:',
+    name: 'Wartość podatku VAT faktur wystawionych w EUR:',
     value: format(
       sumColumn(filterRows(data, 'taxCurrency', 'EUR'), 'taxValue'),
     ),
@@ -49,15 +37,27 @@ export const invoicesReportSchema = (data: IParsedCsvData[]): IReportData[] => [
     ),
   },
   {
-    name: 'Wartość podatku faktur wystawionych PLN:',
+    name: 'Wartość podatku VAT faktur wystawionych PLN:',
     value: format(
       sumColumn(filterRows(data, 'taxCurrency', 'PLN'), 'taxValue'),
     ),
   },
   {
-    name: 'Wartość BRUTTON faktur wystawionych w PLN:',
+    name: 'Wartość BRUTTO faktur wystawionych w PLN:',
     value: format(
       sumColumn(filterRows(data, 'grossCurrency', 'PLN'), 'grossValue'),
     ),
+  },
+  {
+    name: 'Wartność NETTO wszystkich faktur w walucie oddziału:',
+    value: format(sumColumn(data, 'nettInBranchCurrencyValue')),
+  },
+  {
+    name: 'Wartność podatku VAT wszystkich faktur w walucie oddziału:',
+    value: format(sumColumn(data, 'taxInBranchCurrencyValue')),
+  },
+  {
+    name: 'Wartność BRUTTO wszystkich faktur w walucie oddziału:',
+    value: format(sumColumn(data, 'grossInBranchCurrencyValue')),
   },
 ];

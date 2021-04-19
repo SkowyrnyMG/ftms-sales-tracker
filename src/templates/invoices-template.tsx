@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { IParsedCsvData } from 'types/types';
+import type { IDateOfSummary, IParsedCsvData } from 'types/types';
 import { PDFViewer } from '@react-pdf/renderer';
 
 import SelectOption from 'components/atoms/select-option/select-option';
@@ -14,17 +14,13 @@ interface IInvoicesTeplateProps {
   data: IParsedCsvData[];
 }
 
-interface IDateOfSummary {
-  year: string | number;
-  period: string;
-}
-
 const InvoicesTemplate: React.FC<IInvoicesTeplateProps> = ({ data }) => {
   const date = new Date();
   const [dateOfSummary, setDateOfSummary] = React.useState<IDateOfSummary>({
     year: date.getUTCFullYear(),
     period: '',
   });
+  const [comments, setComments] = React.useState<string>();
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
 
   const salesReportFieldsArr = invoicesReportSchema(data);
@@ -36,9 +32,16 @@ const InvoicesTemplate: React.FC<IInvoicesTeplateProps> = ({ data }) => {
   return (
     <div className='container'>
       <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
-        <PDFViewer>
-          <PDFDocument data={salesReportFieldsArr} />
-        </PDFViewer>
+        {isModalOpen && (
+          <PDFViewer>
+            <PDFDocument
+              title='Raport Sprzedaży'
+              period={dateOfSummary}
+              data={salesReportFieldsArr}
+              comments={comments}
+            />
+          </PDFViewer>
+        )}
       </Modal>
       <Hero
         title='Raport sprzedaży'
@@ -79,6 +82,16 @@ const InvoicesTemplate: React.FC<IInvoicesTeplateProps> = ({ data }) => {
             </div>
           </div>
         </div>
+        <div className='columns'>
+          <div className='column is-full-width'>
+            <textarea
+              className='textarea is-info'
+              placeholder='Uwagi...'
+              value={comments}
+              onChange={(e) => setComments(e.target.value)}
+            />
+          </div>
+        </div>
       </div>
       {/* -- End of input fields -- */}
 
@@ -101,11 +114,15 @@ const InvoicesTemplate: React.FC<IInvoicesTeplateProps> = ({ data }) => {
               <span className='has-text-weight-bold'>{dateOfSummary.year}</span>
             </div>
             {salesReportFieldsArr.map(({ name, value }) => (
-              <div className='container my-3'>
+              <div key={name} className='container my-3'>
                 <span className='mr-2'>{name}</span>
                 <span className='has-text-weight-bold'>{value}</span>
               </div>
             ))}
+            <div className='container my-3'>
+              <span className='mr-2'>Uwagi:</span>
+              <span className='has-text-weight-bold'>{comments}</span>
+            </div>
           </div>
           <ActionsContainer>
             {data.length > 0 && (

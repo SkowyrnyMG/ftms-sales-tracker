@@ -11,7 +11,7 @@ const HomeTemplate: React.FC = () => {
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(setDefault());
-  });
+  }, [dispatch]);
   return (
     <>
       <h1 className='title is-1 my-5 py-5 has-text-centered has-text-weight-bold'>

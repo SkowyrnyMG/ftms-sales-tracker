@@ -1,8 +1,13 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import { store } from 'store/store';
+import { selectInvoices } from 'store/slices/invoicesSlice';
 
 import { routes } from 'utils/routes';
 import './App.css';
@@ -10,22 +15,27 @@ import './App.css';
 import HomeView from 'views/home';
 import InvoicesView from 'views/invoices';
 
-const App: React.FC = () => (
-  <Provider store={store}>
+const App: React.FC = () => {
+  const invoicesData = useSelector(selectInvoices);
+  return (
     <Router>
       <Switch>
         <Route path={routes.home} exact>
           <HomeView />
         </Route>
         <Route path={routes.invoices}>
-          <InvoicesView />
+          {invoicesData.length > 0 ? (
+            <InvoicesView />
+          ) : (
+            <Redirect to={routes.home} />
+          )}
         </Route>
         <Route path={routes.unknown}>
           <HomeView />
         </Route>
       </Switch>
     </Router>
-  </Provider>
-);
+  );
+};
 
 export default App;

@@ -50,3 +50,8 @@ export interface IReportData {
   name: string;
   value: number | string;
 }
+
+export interface IDateOfSummary {
+  year: string | number;
+  period: string;
+}

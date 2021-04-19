@@ -8,7 +8,8 @@ const Footer: React.FC = () => (
         <a href='https://mateuszgruzla.pl'>Mateusza Gruźli</a>.
       </p>
       <p>
-        Aplikacja ta powstała w celu ułatwienia pracy wszystkim klientom fireTMS
+        Aplikacja ta powstała w celu ułatwienia generowania raportów PDF z
+        programu fireTMS
       </p>
     </div>
   </footer>
