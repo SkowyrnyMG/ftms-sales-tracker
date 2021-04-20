@@ -23,7 +23,8 @@ export const sumColumn = <T extends unknown>(
     return counterData.reduce((acc, cur) => {
       Object.keys(cur).forEach((key) => {
         if (key !== columnName) return;
-        acc += Number(cur[columnName]); // eslint-disable-line no-param-reassign
+        const curWithDotsDecimals = cur[columnName].replace(',', '.');
+        acc += Number(curWithDotsDecimals); // eslint-disable-line no-param-reassign
       });
       return acc;
     }, 0);
