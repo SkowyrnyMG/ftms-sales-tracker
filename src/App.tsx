@@ -7,16 +7,18 @@ import {
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { selectInvoices } from 'store/slices/invoicesSlice';
+import { selectInvoices, selectPayments } from 'store/slices/invoicesSlice';
 
 import { routes } from 'utils/routes';
 import './App.css';
 
 import HomeView from 'views/home';
 import InvoicesView from 'views/invoices';
+import PaymentsView from 'views/payments';
 
 const App: React.FC = () => {
   const invoicesData = useSelector(selectInvoices);
+  const paymentsData = useSelector(selectPayments);
   return (
     <Router>
       <Switch>
@@ -26,6 +28,13 @@ const App: React.FC = () => {
         <Route path={routes.invoices}>
           {invoicesData.length > 0 ? (
             <InvoicesView />
+          ) : (
+            <Redirect to={routes.home} />
+          )}
+        </Route>
+        <Route path={routes.payments}>
+          {paymentsData.length > 0 ? (
+            <PaymentsView />
           ) : (
             <Redirect to={routes.home} />
           )}

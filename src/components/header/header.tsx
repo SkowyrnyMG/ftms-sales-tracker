@@ -5,12 +5,18 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as LogoIcon } from 'assets/svg/logo.svg';
 
 import { routes } from 'utils/routes';
-import { selectInvoices } from 'store/slices/invoicesSlice';
+import { selectInvoices, selectPayments } from 'store/slices/invoicesSlice';
 import { usePathname } from 'hooks/usePathname';
 
 const Header: React.FC = () => {
-  const loadedFiles = useSelector(selectInvoices);
-  const [isInvoiceFileLoaded] = React.useState<boolean>(loadedFiles.length > 0);
+  const invoicesLoaded = useSelector(selectInvoices);
+  const [isInvoiceFileLoaded] = React.useState<boolean>(
+    invoicesLoaded.length > 0,
+  );
+  const paymentsLoaded = useSelector(selectPayments);
+  const [isPaymentsFileLoaded] = React.useState<boolean>(
+    paymentsLoaded.length > 0,
+  );
 
   const currentPath = usePathname();
 
@@ -55,10 +61,18 @@ const Header: React.FC = () => {
           </Link>
           {isInvoiceFileLoaded && (
             <Link
-              className={`navbar-item is-tab ${setActive('/invoices')}`}
+              className={`navbar-item is-tab ${setActive(routes.invoices)}`}
               to={routes.invoices}
             >
               Faktury
+            </Link>
+          )}
+          {isPaymentsFileLoaded && (
+            <Link
+              className={`navbar-item is-tab ${setActive(routes.payments)}`}
+              to={routes.payments}
+            >
+              Płatności
             </Link>
           )}
         </div>
