@@ -14,6 +14,10 @@ export const filterRows = <T extends unknown>(
   return [];
 };
 
+// * Round number to huntreth value, for example 0.005 to 0.01
+export const roundToHudrethValue = (notRoundedNumber: number): number =>
+  Math.round((notRoundedNumber + Number.EPSILON) * 100) / 100;
+
 // * Sum all values of keys which matches provided column name
 export const sumColumn = <T extends unknown>(
   counterData: T,
@@ -26,7 +30,7 @@ export const sumColumn = <T extends unknown>(
         const curWithDotsDecimals = cur[columnName].replace(',', '.');
         acc += Number(curWithDotsDecimals); // eslint-disable-line no-param-reassign
       });
-      return acc;
+      return roundToHudrethValue(acc);
     }, 0);
   }
   return 0;

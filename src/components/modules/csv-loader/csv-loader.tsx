@@ -4,10 +4,16 @@ import CSVReader from 'react-csv-reader';
 import { Link } from 'react-router-dom';
 
 import type { CsvDataType, IParsedCsvData } from 'types/types';
-import { setInvoices } from 'store/slices/invoicesSlice';
 import { invoicesParser } from 'utils/parsers';
 
-const CSVLoader: React.FC = () => {
+// ! setter and path need to be provided thorugh props
+
+interface ICSVLoaderProps {
+  path: string;
+  stateSetterFn: (parsedData: IParsedCsvData[]) => void;
+}
+
+const CSVLoader: React.FC<ICSVLoaderProps> = ({ path, stateSetterFn }) => {
   const dispatch = useDispatch();
 
   const [csvInfo, setCsvInfo] = React.useState<{
@@ -21,7 +27,7 @@ const CSVLoader: React.FC = () => {
   const handleSubmit = () => {
     if (csvData) {
       const parsedData: IParsedCsvData[] = invoicesParser(csvData);
-      dispatch(setInvoices(parsedData));
+      dispatch(stateSetterFn(parsedData));
     }
   };
   return (
@@ -44,7 +50,7 @@ const CSVLoader: React.FC = () => {
             {(csvInfo.size / BYTES_IN_KILOBYTE).toFixed(2)}Kb
           </span>
           <Link
-            to='/invoices'
+            to={path}
             className='button is-link  mx-5 is-small is-outlined'
             onClick={handleSubmit}
           >
