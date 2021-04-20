@@ -1,10 +1,6 @@
-interface IInvoiceSchema {
-  pos: number;
-  name: string;
-  exampleData: string;
-}
+import { IExampleTable } from 'types/types';
 
-export const importInvoicesSchemaEn: IInvoiceSchema[] = [
+export const importInvoicesSchemaEn: IExampleTable[] = [
   { pos: 1, name: 'Invoice number', exampleData: 'INV/001/02/2020' },
   { pos: 2, name: 'Status', exampleData: 'Issued' },
   { pos: 3, name: 'Payer', exampleData: 'Some Company Ltd.' },
@@ -24,7 +20,7 @@ export const importInvoicesSchemaEn: IInvoiceSchema[] = [
   { pos: 17, name: 'GROSS value in branch currency', exampleData: '5230' },
   { pos: 18, name: 'GROSS branch currency', exampleData: 'PLN' },
 ];
-export const importInvoicesSchemaPl: IInvoiceSchema[] = [
+export const importInvoicesSchemaPl: IExampleTable[] = [
   { pos: 1, name: 'Numer faktury', exampleData: 'INV/001/02/2020' },
   { pos: 2, name: 'Status', exampleData: 'Issued' },
   { pos: 3, name: 'Płatnik', exampleData: 'Jakaś firma sp. zoo' },
@@ -54,5 +50,21 @@ export const importInvoicesSchemaPl: IInvoiceSchema[] = [
     pos: 18,
     name: 'Waluta dla wartości BRUTTO w walucie oddziału',
     exampleData: 'PLN',
+  },
+];
+
+export const importPaymentsSchemaPl: IExampleTable[] = [
+  { pos: 1, name: 'Tagi', exampleData: 'WINDYKACJA' },
+  { pos: 2, name: 'Numer dokumentu', exampleData: 'INV/001/02/2020' },
+  { pos: 3, name: 'Status', exampleData: 'Do zapłaty' },
+  { pos: 4, name: 'Płatnik', exampleData: 'Jakaś firma' },
+  { pos: 5, name: 'Termin płatności', exampleData: '30.01.2020' },
+  { pos: 6, name: 'Do zapłaty', exampleData: '500' },
+  { pos: 7, name: 'Waluta wartości "Do zapłaty"', exampleData: 'EUR' },
+  { pos: 8, name: 'Pozostało do zapłaty', exampleData: '300' },
+  {
+    pos: 9,
+    name: 'Waluta wartości "Pozostało do zapłaty"',
+    exampleData: 'EUR',
   },
 ];

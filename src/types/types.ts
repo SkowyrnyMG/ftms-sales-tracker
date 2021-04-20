@@ -55,3 +55,9 @@ export interface IDateOfSummary {
   year: string | number;
   period: string;
 }
+
+export interface IExampleTable {
+  pos: number;
+  name: string;
+  exampleData: string;
+}
