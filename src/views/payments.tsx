@@ -1,14 +1,18 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
+
+import { selectPayments } from 'store/slices/invoicesSlice';
 
 import Layout from 'components/utils/layout';
 import PaymentsTemplate from 'templates/payments-template';
 
-const InvoicesView: React.FC = () => {
+const PaymentsView: React.FC = () => {
+  const paymentsData = useSelector(selectPayments);
   return (
     <Layout>
-      <PaymentsTemplate />
+      <PaymentsTemplate data={paymentsData} />
     </Layout>
   );
 };
 
-export default InvoicesView;
+export default PaymentsView;

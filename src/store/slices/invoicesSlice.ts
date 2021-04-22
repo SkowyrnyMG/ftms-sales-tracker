@@ -1,43 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from 'store/store';
+import { IParsedPaymentsCsvData, IParsedInvoiceCsvData } from 'types/types';
 
-interface IInvoice {
-  invoice: string;
-  status: string;
-  payer: string;
-  saleDate: Date;
-  issueDate: Date;
-  dueDate: Date;
-  nettValue: number;
-  nettCurrency: string;
-  taxValue: number;
-  taxCurrency: string;
-  grossValue: number;
-  grossCurrency: string;
-  nettInBranchCurrencyValue: number;
-  nettInBranchCurrency: string;
-  taxInBranchCurrencyValue: number;
-  taxInBranchCurrency: string;
-  grossInBranchCurrencyValue: number;
-  grossInBranchCurrency: string;
-}
-
-interface IPayments {
-  tags: string;
-  invoice: string;
-  status: string;
-  payer: string;
-  dueDate: string;
-  toPay: number;
-  toPayCurrency: string;
-  leftToPay: number;
-  leftToPayCurrency: string;
-}
+// interface IInvoice {
+//   invoice: string;
+//   status: string;
+//   payer: string;
+//   saleDate: Date;
+//   issueDate: Date;
+//   dueDate: Date;
+//   nettValue: number;
+//   nettCurrency: string;
+//   taxValue: number;
+//   taxCurrency: string;
+//   grossValue: number;
+//   grossCurrency: string;
+//   nettInBranchCurrencyValue: number;
+//   nettInBranchCurrency: string;
+//   taxInBranchCurrencyValue: number;
+//   taxInBranchCurrency: string;
+//   grossInBranchCurrencyValue: number;
+//   grossInBranchCurrency: string;
+// }
 
 interface IinvoicesSlice {
-  invoices: IInvoice[];
-  payments: IPayments[];
+  invoices: IParsedInvoiceCsvData[];
+  payments: IParsedPaymentsCsvData[];
 }
 
 const initialState: IinvoicesSlice = {
@@ -64,10 +53,10 @@ export const invoicesSlice = createSlice({
 
 export const { setInvoices, setPayments, setDefault } = invoicesSlice.actions;
 
-export const selectInvoices = (state: RootState): IInvoice[] =>
+export const selectInvoices = (state: RootState): IParsedInvoiceCsvData[] =>
   state.InvoicesReducer.invoices;
 
-export const selectPayments = (state: RootState): IPayments[] =>
+export const selectPayments = (state: RootState): IParsedPaymentsCsvData[] =>
   state.InvoicesReducer.payments;
 
 export default invoicesSlice.reducer;

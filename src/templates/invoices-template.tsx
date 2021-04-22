@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { IDateOfSummary, IParsedCsvData } from 'types/types';
+import type { IDateOfSummary, IParsedInvoiceCsvData } from 'types/types';
 import { PDFViewer } from '@react-pdf/renderer';
 
 import SelectOption from 'components/atoms/select-option/select-option';
@@ -11,7 +11,7 @@ import PDFDocument from 'components/modules/pdf-document/pdf-document';
 import { invoicesReportSchema } from 'utils/reports-schemas';
 
 interface IInvoicesTeplateProps {
-  data: IParsedCsvData[];
+  data: IParsedInvoiceCsvData[];
 }
 
 const InvoicesTemplate: React.FC<IInvoicesTeplateProps> = ({ data }) => {

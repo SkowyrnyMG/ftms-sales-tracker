@@ -1,16 +1,24 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import CSVReader from 'react-csv-reader';
+import CSVReader, { IFileInfo } from 'react-csv-reader';
 import { Link } from 'react-router-dom';
 
-import type { CsvDataType, IParsedCsvData } from 'types/types';
-import { invoicesParser } from 'utils/parsers';
+import type {
+  IInvoiceCsvDataType,
+  IParsedInvoiceCsvData,
+  IPaymentsCsvDataType,
+  IParsedPaymentsCsvData,
+} from 'types/types';
+import { invoicesParser, paymentsParser } from 'utils/parsers';
+import { routes } from 'utils/routes';
 
 // ! setter and path need to be provided thorugh props
 
 interface ICSVLoaderProps {
   path: string;
-  stateSetterFn: (parsedData: IParsedCsvData[]) => void;
+  stateSetterFn: (
+    parsedData: IParsedInvoiceCsvData[] | IParsedPaymentsCsvData[],
+  ) => void;
 }
 
 const CSVLoader: React.FC<ICSVLoaderProps> = ({ path, stateSetterFn }) => {
@@ -20,22 +28,56 @@ const CSVLoader: React.FC<ICSVLoaderProps> = ({ path, stateSetterFn }) => {
     name: string;
     size: number;
   }>();
-  const [csvData, setCsvData] = React.useState<CsvDataType[]>();
+  const [csvInvoiceData, setCsvInvoiceData] = React.useState<
+    IInvoiceCsvDataType[]
+  >();
+
+  const [csvPaymentsData, setCsvPaymentsData] = React.useState<
+    IPaymentsCsvDataType[]
+  >();
 
   const BYTES_IN_KILOBYTE = 1024;
 
-  const handleSubmit = () => {
-    if (csvData) {
-      const parsedData: IParsedCsvData[] = invoicesParser(csvData);
+  const handleInvoiceSubmit = () => {
+    if (csvInvoiceData) {
+      const parsedData: IParsedInvoiceCsvData[] = invoicesParser(
+        csvInvoiceData,
+      );
       dispatch(stateSetterFn(parsedData));
+    }
+  };
+  const handlePaymentsSubmit = () => {
+    if (csvPaymentsData) {
+      const parsedData: IParsedPaymentsCsvData[] = paymentsParser(
+        csvPaymentsData,
+      );
+      dispatch(stateSetterFn(parsedData));
+    }
+  };
+
+  const handleSubmitConditionaly = () => {
+    if (path.includes(routes.invoices)) {
+      handleInvoiceSubmit();
+    }
+    if (path.includes(routes.payments)) {
+      handlePaymentsSubmit();
+    }
+  };
+
+  const handleFileLoad = (data: any, fileInfo: IFileInfo) => {
+    setCsvInfo(fileInfo);
+    if (path.includes(routes.invoices)) {
+      setCsvInvoiceData(data);
+    }
+    if (path.includes(routes.payments)) {
+      setCsvPaymentsData(data);
     }
   };
   return (
     <div className='box p-5'>
       <CSVReader
         onFileLoaded={(data, fileInfo) => {
-          setCsvInfo(fileInfo);
-          setCsvData(data);
+          handleFileLoad(data, fileInfo);
         }}
         parserOptions={{ skipEmptyLines: true }}
         label='Wybierz plik CSV z Twojego komputera:  '
@@ -52,7 +94,7 @@ const CSVLoader: React.FC<ICSVLoaderProps> = ({ path, stateSetterFn }) => {
           <Link
             to={path}
             className='button is-link  mx-5 is-small is-outlined'
-            onClick={handleSubmit}
+            onClick={handleSubmitConditionaly}
           >
             Generuj raport
           </Link>

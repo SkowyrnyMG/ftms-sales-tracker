@@ -4,7 +4,8 @@ export interface IRowPositionProps {
   gross: number;
 }
 
-export type CsvDataType = [
+export type IInvoiceCsvDataType = [
+  type: 'IInvoiceCsvDataType[]',
   invoice: string,
   status: string,
   payer: string,
@@ -25,7 +26,7 @@ export type CsvDataType = [
   grossInBranchCurrency: string,
 ];
 
-export interface IParsedCsvData {
+export interface IParsedInvoiceCsvData {
   invoice: string;
   status: string;
   payer: string;
@@ -44,6 +45,30 @@ export interface IParsedCsvData {
   taxInBranchCurrency: string;
   grossInBranchCurrencyValue: number;
   grossInBranchCurrency: string;
+}
+
+export type IPaymentsCsvDataType = [
+  tags: string,
+  invoice: string,
+  status: string,
+  payer: string,
+  dueDate: string,
+  toPay: number,
+  toPayCurrency: string,
+  leftToPay: number,
+  leftToPayCurrency: string,
+];
+
+export interface IParsedPaymentsCsvData {
+  tags: string;
+  invoice: string;
+  status: string;
+  payer: string;
+  dueDate: string;
+  toPay: number;
+  toPayCurrency: string;
+  leftToPay: number;
+  leftToPayCurrency: string;
 }
 
 export interface IReportData {

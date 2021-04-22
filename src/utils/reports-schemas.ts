@@ -5,9 +5,15 @@ import {
   countPositions,
 } from 'utils/data-helper-functions';
 
-import { IParsedCsvData, IReportData } from 'types/types';
+import {
+  IParsedInvoiceCsvData,
+  IParsedPaymentsCsvData,
+  IReportData,
+} from 'types/types';
 
-export const invoicesReportSchema = (data: IParsedCsvData[]): IReportData[] => [
+export const invoicesReportSchema = (
+  data: IParsedInvoiceCsvData[],
+): IReportData[] => [
   {
     name: 'Ilosć faktur:',
     value: countPositions(data),
@@ -59,5 +65,21 @@ export const invoicesReportSchema = (data: IParsedCsvData[]): IReportData[] => [
   {
     name: 'Wartność BRUTTO wszystkich faktur w walucie oddziału:',
     value: format(sumColumn(data, 'grossInBranchCurrencyValue')),
+  },
+];
+
+export const paymentsReportSchema = (
+  data: IParsedPaymentsCsvData[],
+): IReportData[] => [
+  {
+    name: 'Ilosć faktur:',
+    value: countPositions(data),
+  },
+  {
+    name: 'Wartość pozostała do zapłaty faktur wystawionych w PLN:',
+    value: format(
+      sumColumn(filterRows(data, 'toPayCurrency', 'PLN'), 'toPay') -
+        sumColumn(filterRows(data, 'leftToPayCurrency', 'PLN'), 'leftToPay'),
+    ),
   },
 ];
