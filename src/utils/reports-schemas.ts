@@ -76,10 +76,29 @@ export const paymentsReportSchema = (
     value: countPositions(data),
   },
   {
-    name: 'Wartość pozostała do zapłaty faktur wystawionych w PLN:',
+    name: 'Wartość opłaconych faktur w walucie PLN:',
     value: format(
       sumColumn(filterRows(data, 'toPayCurrency', 'PLN'), 'toPay') -
         sumColumn(filterRows(data, 'leftToPayCurrency', 'PLN'), 'leftToPay'),
+    ),
+  },
+  {
+    name: 'Wartość opłaconych faktur w walucie EUR:',
+    value: format(
+      sumColumn(filterRows(data, 'toPayCurrency', 'EUR'), 'toPay') -
+        sumColumn(filterRows(data, 'leftToPayCurrency', 'EUR'), 'leftToPay'),
+    ),
+  },
+  {
+    name: 'Wartość pozostała do zapłaty faktur wystawionych w EUR:',
+    value: format(
+      sumColumn(filterRows(data, 'leftToPayCurrency', 'EUR'), 'leftToPay'),
+    ),
+  },
+  {
+    name: 'Wartość pozostała do zapłaty faktur wystawionych w PLN:',
+    value: format(
+      sumColumn(filterRows(data, 'leftToPayCurrency', 'PLN'), 'leftToPay'),
     ),
   },
 ];

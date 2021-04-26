@@ -10,3 +10,7 @@
 .doc-container iframe {
   width: 100%;
 }
+
+.non-targetable {
+  pointer-events: none;
+}

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface IRowPositionProps {
   invoice: string;
   nett: number;
@@ -85,4 +87,14 @@ export interface IExampleTable {
   pos: number;
   name: string;
   exampleData: string;
+}
+
+export interface IOptionalInput {
+  inputID: string;
+  placeholder?: string;
+  inputValue: string;
+  onValueChangeHandler?: React.ChangeEventHandler<HTMLInputElement>;
+  inputName: string;
+  onNameChangeHandler?: React.ChangeEventHandler<HTMLInputElement>;
+  onDeleteHandler?: React.MouseEventHandler<HTMLButtonElement>;
 }

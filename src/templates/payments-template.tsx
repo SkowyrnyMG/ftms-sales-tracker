@@ -1,13 +1,24 @@
+import * as React from 'react';
+import { PDFViewer } from '@react-pdf/renderer';
+import uniqid from 'uniqid';
+
+import {
+  IDateOfSummary,
+  IParsedPaymentsCsvData,
+  IOptionalInput,
+} from 'types/types';
+import { paymentsReportSchema } from 'utils/reports-schemas';
+
 import ButtonLink from 'components/atoms/button-link/button-link';
 import SelectOption from 'components/atoms/select-option/select-option';
 import Hero from 'components/modules/hero/hero';
+import PDFDocument from 'components/modules/pdf-document/pdf-document';
 import ActionsContainer from 'components/organisms/actions-container/actions-container';
-import * as React from 'react';
-import { IDateOfSummary } from 'types/types';
-import { paymentsReportSchema } from 'utils/reports-schemas';
+import Modal from 'components/organisms/modal/modal';
+import OptionalInput from 'components/modules/optional-input/optional-input';
 
 interface IPaymentsTemplateProps {
-  data: any[];
+  data: IParsedPaymentsCsvData[];
 }
 
 const PaymentsTemplate: React.FC<IPaymentsTemplateProps> = ({ data }) => {
@@ -17,10 +28,41 @@ const PaymentsTemplate: React.FC<IPaymentsTemplateProps> = ({ data }) => {
     period: '',
   });
   const [comments, setComments] = React.useState<string>();
+  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
+  const [additionalInputs, setAdditionalInputs] = React.useState<
+    IOptionalInput[]
+  >([]);
 
   const paymentReportFieldsArr = paymentsReportSchema(data);
+
+  const toggleModal = () => {
+    setIsModalOpen((prevState) => !prevState);
+  };
+
+  const handleAddNewInput = () => {
+    const inputID = uniqid();
+    const defaultInputValue = {
+      inputValue: ``,
+      inputName: ``,
+      inputID,
+    };
+    setAdditionalInputs((prevState) => [...prevState, defaultInputValue]);
+  };
+
   return (
     <div className='container'>
+      <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
+        {isModalOpen && (
+          <PDFViewer>
+            <PDFDocument
+              title='Raport płatności'
+              period={dateOfSummary}
+              data={paymentReportFieldsArr}
+              comments={comments}
+            />
+          </PDFViewer>
+        )}
+      </Modal>
       <Hero
         title='Raport płatności'
         subtitle='Podaj odpowiedni miesiąc i rok, aby wyświetlić poprawne dane na raporcie PDF. Możesz dodać dodatkowe pozycje raportu dodając kolejne filtry otagowancyh pozycji'
@@ -71,6 +113,49 @@ const PaymentsTemplate: React.FC<IPaymentsTemplateProps> = ({ data }) => {
             />
           </div>
         </div>
+
+        {additionalInputs.length > 0 &&
+          additionalInputs.map(({ inputValue, inputName, inputID }, index) => (
+            <OptionalInput
+              key={inputID}
+              inputValue={inputValue}
+              inputName={inputName}
+              inputID={inputID}
+              placeholder='Wprowadź dodatkową wartość filtrowania w #TAGACH'
+              onValueChangeHandler={(e) =>
+                setAdditionalInputs((prevState) => {
+                  const updatedArr = prevState.slice();
+                  updatedArr[index].inputValue = e.target.value;
+                  return updatedArr;
+                })
+              }
+              onNameChangeHandler={(e) =>
+                setAdditionalInputs((prevState) => {
+                  const updatedArr = prevState.slice();
+                  updatedArr[index].inputName = e.target.value;
+                  return updatedArr;
+                })
+              }
+              onDeleteHandler={(e) =>
+                setAdditionalInputs((prevState) =>
+                  prevState
+                    .slice()
+                    .filter(
+                      (input) =>
+                        input.inputID !== (e.target as HTMLButtonElement).id,
+                    ),
+                )
+              }
+            />
+          ))}
+
+        <button
+          type='button'
+          className='button is-primary'
+          onClick={handleAddNewInput}
+        >
+          Dodaj wartość do raportu
+        </button>
       </div>
       {/* -- End of input fields -- */}
 
@@ -98,13 +183,16 @@ const PaymentsTemplate: React.FC<IPaymentsTemplateProps> = ({ data }) => {
                 <span className='has-text-weight-bold'>{value}</span>
               </div>
             ))}
+
             <div className='container my-3'>
               <span className='mr-2'>Uwagi:</span>
               <span className='has-text-weight-bold'>{comments}</span>
             </div>
           </div>
           <ActionsContainer>
-            {data.length > 0 && <ButtonLink>Exportuj PDF</ButtonLink>}
+            {data.length > 0 && (
+              <ButtonLink handleClick={toggleModal}>Exportuj PDF</ButtonLink>
+            )}
           </ActionsContainer>
         </div>
       </div>
