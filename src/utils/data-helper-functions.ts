@@ -9,7 +9,10 @@ export const filterRows = <T extends unknown>(
   filter: string,
 ): T[] | [] => {
   if (filterData instanceof Array) {
-    return filterData.filter((pos) => pos[filterTarget] === filter);
+    // return filterData.filter((pos) => pos[filterTarget] === filter);
+    return filterData.filter((pos) =>
+      pos[filterTarget].toLowerCase().includes(filter.toLowerCase()),
+    );
   }
   return [];
 };

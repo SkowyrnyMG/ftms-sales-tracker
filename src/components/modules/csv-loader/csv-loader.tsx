@@ -12,8 +12,6 @@ import type {
 import { invoicesParser, paymentsParser } from 'utils/parsers';
 import { routes } from 'utils/routes';
 
-// ! setter and path need to be provided thorugh props
-
 interface ICSVLoaderProps {
   path: string;
   stateSetterFn: (
@@ -64,7 +62,8 @@ const CSVLoader: React.FC<ICSVLoaderProps> = ({ path, stateSetterFn }) => {
     }
   };
 
-  const handleFileLoad = (data: any, fileInfo: IFileInfo) => {
+  // * The reason why I've disabled line below is because I can't type data conditionaly with pyaments and invoices
+  const handleFileLoad = (data: any, fileInfo: IFileInfo) => { // eslint-disable-line
     setCsvInfo(fileInfo);
     if (path.includes(routes.invoices)) {
       setCsvInvoiceData(data);
@@ -88,8 +87,7 @@ const CSVLoader: React.FC<ICSVLoaderProps> = ({ path, stateSetterFn }) => {
             Nazwa pliku: {csvInfo.name}
           </span>
           <span className='has-text-weight-bold mx-5'>
-            Rozmiar pliku:
-            {(csvInfo.size / BYTES_IN_KILOBYTE).toFixed(2)}Kb
+            Rozmiar pliku: {(csvInfo.size / BYTES_IN_KILOBYTE).toFixed(2)}Kb
           </span>
           <Link
             to={path}

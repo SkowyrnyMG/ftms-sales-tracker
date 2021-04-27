@@ -59,12 +59,20 @@ export const importPaymentsSchemaPl: IExampleTable[] = [
   { pos: 3, name: 'Status', exampleData: 'Do zapłaty' },
   { pos: 4, name: 'Płatnik', exampleData: 'Jakaś firma' },
   { pos: 5, name: 'Termin płatności', exampleData: '30.01.2020' },
-  { pos: 6, name: 'Do zapłaty', exampleData: '500' },
-  { pos: 7, name: 'Waluta wartości "Do zapłaty"', exampleData: 'EUR' },
-  { pos: 8, name: 'Pozostało do zapłaty', exampleData: '300' },
+  { pos: 6, name: 'Wartość wg kursu wystawienia faktury', exampleData: '500' },
+  {
+    pos: 7,
+    name: 'Wartość wg kursu wystawienia faktury - Waluta',
+    exampleData: 'PLN',
+  },
+  {
+    pos: 8,
+    name: 'Pozostało do zapłaty [w walucie kraju oddziału]',
+    exampleData: '300',
+  },
   {
     pos: 9,
-    name: 'Waluta wartości "Pozostało do zapłaty"',
-    exampleData: 'EUR',
+    name: 'Pozostało do zapłaty [w walucie kraju oddziału] - Waluta',
+    exampleData: 'PLN',
   },
 ];

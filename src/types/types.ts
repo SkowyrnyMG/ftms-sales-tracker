@@ -78,6 +78,10 @@ export interface IReportData {
   value: number | string;
 }
 
+export interface IPaymentReoprtData extends IReportData {
+  countOption?: 'string';
+}
+
 export interface IDateOfSummary {
   year: string | number;
   period: string;
@@ -97,4 +101,6 @@ export interface IOptionalInput {
   inputName: string;
   onNameChangeHandler?: React.ChangeEventHandler<HTMLInputElement>;
   onDeleteHandler?: React.MouseEventHandler<HTMLButtonElement>;
+  countOption: string;
+  handleChangeCountOption?: React.ChangeEventHandler<HTMLSelectElement>;
 }

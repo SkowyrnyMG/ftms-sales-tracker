@@ -7,7 +7,10 @@ import {
   IParsedPaymentsCsvData,
   IOptionalInput,
 } from 'types/types';
-import { paymentsReportSchema } from 'utils/reports-schemas';
+import {
+  paymentsReportAdditionalFieldsSchema,
+  paymentsReportSchema,
+} from 'utils/reports-schemas';
 
 import ButtonLink from 'components/atoms/button-link/button-link';
 import SelectOption from 'components/atoms/select-option/select-option';
@@ -34,6 +37,10 @@ const PaymentsTemplate: React.FC<IPaymentsTemplateProps> = ({ data }) => {
   >([]);
 
   const paymentReportFieldsArr = paymentsReportSchema(data);
+  const additionalPaymentReportFieldsArr = paymentsReportAdditionalFieldsSchema(
+    data,
+    additionalInputs,
+  );
 
   const toggleModal = () => {
     setIsModalOpen((prevState) => !prevState);
@@ -44,6 +51,7 @@ const PaymentsTemplate: React.FC<IPaymentsTemplateProps> = ({ data }) => {
     const defaultInputValue = {
       inputValue: ``,
       inputName: ``,
+      countOption: `toPay`,
       inputID,
     };
     setAdditionalInputs((prevState) => [...prevState, defaultInputValue]);
@@ -57,7 +65,9 @@ const PaymentsTemplate: React.FC<IPaymentsTemplateProps> = ({ data }) => {
             <PDFDocument
               title='Raport płatności'
               period={dateOfSummary}
-              data={paymentReportFieldsArr}
+              data={paymentReportFieldsArr.concat(
+                additionalPaymentReportFieldsArr,
+              )}
               comments={comments}
             />
           </PDFViewer>
@@ -115,39 +125,49 @@ const PaymentsTemplate: React.FC<IPaymentsTemplateProps> = ({ data }) => {
         </div>
 
         {additionalInputs.length > 0 &&
-          additionalInputs.map(({ inputValue, inputName, inputID }, index) => (
-            <OptionalInput
-              key={inputID}
-              inputValue={inputValue}
-              inputName={inputName}
-              inputID={inputID}
-              placeholder='Wprowadź dodatkową wartość filtrowania w #TAGACH'
-              onValueChangeHandler={(e) =>
-                setAdditionalInputs((prevState) => {
-                  const updatedArr = prevState.slice();
-                  updatedArr[index].inputValue = e.target.value;
-                  return updatedArr;
-                })
-              }
-              onNameChangeHandler={(e) =>
-                setAdditionalInputs((prevState) => {
-                  const updatedArr = prevState.slice();
-                  updatedArr[index].inputName = e.target.value;
-                  return updatedArr;
-                })
-              }
-              onDeleteHandler={(e) =>
-                setAdditionalInputs((prevState) =>
-                  prevState
-                    .slice()
-                    .filter(
-                      (input) =>
-                        input.inputID !== (e.target as HTMLButtonElement).id,
-                    ),
-                )
-              }
-            />
-          ))}
+          additionalInputs.map(
+            ({ inputValue, inputName, inputID, countOption }, index) => (
+              <OptionalInput
+                key={inputID}
+                inputValue={inputValue}
+                inputName={inputName}
+                countOption={countOption}
+                inputID={inputID}
+                placeholder='Wprowadź dodatkową wartość filtrowania w #TAGACH'
+                onValueChangeHandler={(e) =>
+                  setAdditionalInputs((prevState) => {
+                    const updatedArr = prevState.slice();
+                    updatedArr[index].inputValue = e.target.value;
+                    return updatedArr;
+                  })
+                }
+                onNameChangeHandler={(e) =>
+                  setAdditionalInputs((prevState) => {
+                    const updatedArr = prevState.slice();
+                    updatedArr[index].inputName = e.target.value;
+                    return updatedArr;
+                  })
+                }
+                handleChangeCountOption={(e) =>
+                  setAdditionalInputs((prevState) => {
+                    const updatedArr = prevState.slice();
+                    updatedArr[index].countOption = e.target.value;
+                    return updatedArr;
+                  })
+                }
+                onDeleteHandler={(e) =>
+                  setAdditionalInputs((prevState) =>
+                    prevState
+                      .slice()
+                      .filter(
+                        (input) =>
+                          input.inputID !== (e.target as HTMLButtonElement).id,
+                      ),
+                  )
+                }
+              />
+            ),
+          )}
 
         <button
           type='button'
@@ -183,6 +203,17 @@ const PaymentsTemplate: React.FC<IPaymentsTemplateProps> = ({ data }) => {
                 <span className='has-text-weight-bold'>{value}</span>
               </div>
             ))}
+
+            {additionalInputs.length > 0 &&
+              additionalPaymentReportFieldsArr.map(
+                ({ name, value }) =>
+                  name && (
+                    <div key={name} className='container my-3'>
+                      <span className='mr-2'>{name}: </span>
+                      <span className='has-text-weight-bold'>{value}</span>
+                    </div>
+                  ),
+              )}
 
             <div className='container my-3'>
               <span className='mr-2'>Uwagi:</span>
