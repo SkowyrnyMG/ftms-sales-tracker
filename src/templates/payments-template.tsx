@@ -59,7 +59,11 @@ const PaymentsTemplate: React.FC<IPaymentsTemplateProps> = ({ data }) => {
 
   return (
     <div className='container'>
-      <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
+      <Modal
+        isModalOpen={isModalOpen}
+        toggleModal={toggleModal}
+        title='Raport płatności'
+      >
         {isModalOpen && (
           <PDFViewer>
             <PDFDocument

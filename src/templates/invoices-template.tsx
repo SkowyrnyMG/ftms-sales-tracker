@@ -31,7 +31,11 @@ const InvoicesTemplate: React.FC<IInvoicesTeplateProps> = ({ data }) => {
 
   return (
     <div className='container'>
-      <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
+      <Modal
+        isModalOpen={isModalOpen}
+        toggleModal={toggleModal}
+        title='Raport sprzedaży'
+      >
         {isModalOpen && (
           <PDFViewer>
             <PDFDocument

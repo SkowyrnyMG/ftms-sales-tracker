@@ -16,6 +16,7 @@
     "axios": "^0.21.1",
     "bulma-modal-fx": "^1.1.1",
     "dotenv": "^8.2.0",
+    "firebase": "^8.4.2",
     "netlify-lambda": "^2.0.3",
     "react": "^17.0.2",
     "react-csv-reader": "^3.3.0",

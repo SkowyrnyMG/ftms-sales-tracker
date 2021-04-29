@@ -5,7 +5,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { selectInvoices, selectPayments } from 'store/slices/invoicesSlice';
 
@@ -15,10 +15,16 @@ import './App.css';
 import HomeView from 'views/home';
 import InvoicesView from 'views/invoices';
 import PaymentsView from 'views/payments';
+import { isUserLoggedIn } from 'store/slices/dbSlice';
 
 const App: React.FC = () => {
+  const dispatch = useDispatch();
   const invoicesData = useSelector(selectInvoices);
   const paymentsData = useSelector(selectPayments);
+
+  React.useEffect(() => {
+    dispatch(isUserLoggedIn());
+  }, [dispatch]);
   return (
     <Router>
       <Switch>

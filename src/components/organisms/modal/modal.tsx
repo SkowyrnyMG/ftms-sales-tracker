@@ -3,12 +3,14 @@ import * as React from 'react';
 interface IModalProps {
   isModalOpen: boolean;
   toggleModal: () => void;
+  title: string;
   children: React.ReactNode;
 }
 
 const Modal: React.FC<IModalProps> = ({
   isModalOpen,
   toggleModal,
+  title,
   children,
 }) => {
   const isActive = (): string => {
@@ -21,7 +23,7 @@ const Modal: React.FC<IModalProps> = ({
       <div className='modal-background' />
       <div className='modal-content is-huge container '>
         <header className='modal-card-head'>
-          <p className='modal-card-title'>Raport sprzedaży</p>
+          <p className='modal-card-title'>{title}</p>
           <button
             type='button'
             className='delete'
